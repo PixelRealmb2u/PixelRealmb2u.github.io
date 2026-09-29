@@ -38,6 +38,7 @@ body::before{
 
 /* هدر */
 header{
+    position:relative;
     padding:45px 20px 35px;
     text-align:center;
     background:linear-gradient(135deg,#06347a,#0755c7);
@@ -56,6 +57,144 @@ header{
 .subtitle{
     font-size:18px;
     color:#d7e9ff;
+}
+
+/* دکمه جستجو */
+.search-btn{
+    position:absolute;
+    left:18px;
+    top:18px;
+    width:48px;
+    height:48px;
+    border:none;
+    border-radius:50%;
+    background:#081528;
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+    box-shadow:0 0 18px #0008;
+    transition:.25s;
+}
+
+.search-btn:hover{
+    transform:scale(1.08);
+    background:#102744;
+}
+
+.search-btn svg{
+    width:24px;
+    height:24px;
+}
+
+/* پنجره جستجو */
+.search-overlay{
+    position:fixed;
+    inset:0;
+    background:#0009;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:9998;
+}
+
+.search-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.search-drawer{
+    position:fixed;
+    top:0;
+    right:-390px;
+    width:min(390px,92%);
+    height:100vh;
+    background:#06101f;
+    border-left:2px solid #1976d2;
+    box-shadow:-10px 0 40px #000b;
+    z-index:9999;
+    transition:right .35s ease;
+    padding:20px;
+    overflow-y:auto;
+}
+
+.search-drawer.active{
+    right:0;
+}
+
+.search-header{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+}
+
+.search-header h2{
+    color:#42a5ff;
+    font-size:24px;
+}
+
+.search-close{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:50%;
+    background:#12233a;
+    color:white;
+    font-size:24px;
+    cursor:pointer;
+}
+
+.search-input-wrap{
+    position:relative;
+    margin-bottom:20px;
+}
+
+.search-input{
+    width:100%;
+    padding:15px 18px;
+    border-radius:14px;
+    border:1px solid #1976d2;
+    outline:none;
+    background:#0a192d;
+    color:white;
+    font-size:17px;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+.search-input::placeholder{
+    color:#8193ac;
+}
+
+.search-results{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.search-result{
+    display:block;
+    padding:16px;
+    border-radius:15px;
+    background:#0a192d;
+    border:1px solid #12365b;
+    color:white;
+    text-decoration:none;
+    line-height:1.8;
+    transition:.2s;
+}
+
+.search-result:hover{
+    border-color:#2196ff;
+    transform:translateX(-3px);
+}
+
+.search-message{
+    text-align:center;
+    color:#8193ac;
+    padding:25px 10px;
+    line-height:2;
 }
 
 /* محتوای اصلی */
@@ -437,13 +576,63 @@ footer strong{
 <body>
 
 <header>
+
+    <button class="search-btn" onclick="openSearch()" aria-label="جستجو">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+        </svg>
+    </button>
+
     <div class="logo">Pixel Realm</div>
     <div class="subtitle">Minecraft Bedrock Mods & Add-ons</div>
+
 </header>
+
+
+<!-- پنجره جستجو -->
+
+<div class="search-overlay" id="searchOverlay" onclick="closeSearch()"></div>
+
+<div class="search-drawer" id="searchDrawer">
+
+    <div class="search-header">
+
+        <h2>🔎 جستجو</h2>
+
+        <button class="search-close" onclick="closeSearch()">
+            ×
+        </button>
+
+    </div>
+
+    <div class="search-input-wrap">
+
+        <input
+            type="search"
+            id="searchInput"
+            class="search-input"
+            placeholder="جستجو..."
+            autocomplete="off"
+        >
+
+    </div>
+
+    <div class="search-results" id="searchResults">
+
+        <div class="search-message">
+            عبارت مورد نظر خود را وارد کنید.
+        </div>
+
+    </div>
+
+</div>
+
 
 <main class="container">
 
 <section class="welcome">
+
     <h1>🎮 به Pixel Realm خوش آمدید</h1>
 
     <p>
@@ -457,59 +646,82 @@ footer strong{
        target="_blank">
        ✈️ کانال تلگرام Pixel Realm
     </a>
+
 </section>
 
 
 <h2 class="social-title">🌐 شبکه‌های اجتماعی</h2>
 
+
 <div class="socials">
 
     <!-- TELEGRAM -->
+
     <a class="social telegram"
        href="https://t.me/qpwoeirutyalskdjfhf"
        target="_blank">
 
         <svg viewBox="0 0 24 24">
+
             <path d="M21.9 3.4 18.7 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.8l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4.4z"/>
+
         </svg>
 
         <span>Telegram</span>
+
     </a>
 
 
     <!-- INSTAGRAM -->
+
     <a class="social instagram"
        href="https://instagram.com/pixelrealml"
        target="_blank">
 
         <svg viewBox="0 0 24 24">
+
             <defs>
-                <linearGradient id="instaGradient"
-                    x1="0%" y1="100%"
-                    x2="100%" y2="0%">
+
+                <linearGradient
+                    id="instaGradient"
+                    x1="0%"
+                    y1="100%"
+                    x2="100%"
+                    y2="0%">
+
                     <stop offset="0%" stop-color="#833AB4"/>
                     <stop offset="50%" stop-color="#E1306C"/>
                     <stop offset="100%" stop-color="#FCAF45"/>
+
                 </linearGradient>
+
             </defs>
 
-            <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm4.5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.2-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/>
+            <!-- لوگوی صحیح اینستاگرام -->
+
+            <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm0 2h10c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3zm5 3.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5zm0 2A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm5.25-3a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5z"/>
+
         </svg>
 
         <span>Instagram</span>
+
     </a>
 
 
     <!-- YOUTUBE -->
+
     <a class="social youtube"
        href="https://www.youtube.com/@PixelRealm-b2u"
        target="_blank">
 
         <svg viewBox="0 0 24 24">
+
             <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.8V8.2l6.5 3.8-6.5 3.8z"/>
+
         </svg>
 
         <span>YouTube</span>
+
     </a>
 
 </div>
@@ -519,6 +731,7 @@ footer strong{
 
 
 <div class="mod-card">
+
     <h2>🚀 مودها به‌زودی اضافه می‌شوند</h2>
 
     <p>
@@ -529,10 +742,12 @@ footer strong{
     <a class="download" href="#">
         مشاهده مود
     </a>
+
 </div>
 
 
 <!-- زامبی -->
+
 <div class="zombie-area" id="zombieArea">
 
     <div class="moon"></div>
@@ -548,9 +763,11 @@ footer strong{
         <div class="z-body"></div>
 
         <div class="z-arm1"></div>
+
         <div class="z-arm2"></div>
 
         <div class="z-leg1"></div>
+
         <div class="z-leg2"></div>
 
     </div>
@@ -561,22 +778,29 @@ footer strong{
 
 
 <div class="mod-card">
+
     <h2>⚙️ سیستم خودکار در آینده</h2>
 
     <p>
         ربات Pixel Realm می‌تواند اطلاعات مودهای جدید
         را دریافت کند و آن‌ها را به صورت خودکار در سایت نمایش دهد.
     </p>
+
 </div>
 
 </main>
 
 
 <footer>
+
     <strong>Pixel Realm</strong>
+
     Minecraft Bedrock Mods & Add-ons
+
     <br><br>
+
     © 2026 Pixel Realm
+
 </footer>
 
 
@@ -589,59 +813,211 @@ let lastScroll = window.scrollY;
 let zombieX = 12;
 let walkingTimer;
 
+
+/* =========================
+   سیستم جستجو
+========================= */
+
+const searchDrawer = document.getElementById("searchDrawer");
+const searchOverlay = document.getElementById("searchOverlay");
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+
+
+function openSearch(){
+
+    searchDrawer.classList.add("active");
+    searchOverlay.classList.add("active");
+
+    setTimeout(() => {
+        searchInput.focus();
+    },350);
+
+}
+
+
+function closeSearch(){
+
+    searchDrawer.classList.remove("active");
+    searchOverlay.classList.remove("active");
+
+}
+
+
+function escapeHTML(text){
+
+    const div = document.createElement("div");
+
+    div.textContent = text;
+
+    return div.innerHTML;
+
+}
+
+
+function searchSite(){
+
+    const query = searchInput.value.trim().toLowerCase();
+
+    searchResults.innerHTML = "";
+
+    if(!query){
+
+        searchResults.innerHTML = `
+            <div class="search-message">
+                عبارت مورد نظر خود را وارد کنید.
+            </div>
+        `;
+
+        return;
+
+    }
+
+
+    const elements = document.querySelectorAll(
+        "main h1, main h2, main h3, main p, main a"
+    );
+
+    let found = 0;
+
+
+    elements.forEach(element => {
+
+        const text = element.innerText.trim();
+
+        if(
+            text &&
+            text.toLowerCase().includes(query)
+        ){
+
+            found++;
+
+            const result = document.createElement("a");
+
+            result.className = "search-result";
+
+            result.href = "#";
+
+            result.innerHTML =
+                escapeHTML(text);
+
+            result.addEventListener("click", function(event){
+
+                event.preventDefault();
+
+                closeSearch();
+
+                element.scrollIntoView({
+                    behavior:"smooth",
+                    block:"center"
+                });
+
+            });
+
+            searchResults.appendChild(result);
+
+        }
+
+    });
+
+
+    if(found === 0){
+
+        searchResults.innerHTML = `
+            <div class="search-message">
+                نتیجه‌ای برای «${escapeHTML(query)}» پیدا نشد.
+            </div>
+        `;
+
+    }
+
+}
+
+
+searchInput.addEventListener(
+    "input",
+    searchSite
+);
+
+
+searchInput.addEventListener(
+    "keydown",
+    function(event){
+
+        if(event.key === "Enter"){
+            searchSite();
+        }
+
+        if(event.key === "Escape"){
+            closeSearch();
+        }
+
+    }
+);
+
+
+/* =========================
+   حرکت زامبی
+========================= */
+
 window.addEventListener("scroll", () => {
 
     const currentScroll = window.scrollY;
+
     const areaTop = zombieArea.offsetTop;
+
     const areaHeight = zombieArea.offsetHeight;
 
-    /* فقط وقتی بخش زامبی در صفحه دیده می‌شود */
+
     const visible =
         currentScroll + window.innerHeight > areaTop &&
         currentScroll < areaTop + areaHeight;
+
 
     if(visible){
 
         zombie.classList.add("walk");
 
-        /* حرکت بر اساس مقدار اسکرول */
+
         if(currentScroll > lastScroll){
+
             zombieX += 0.7;
+
         }else{
+
             zombieX -= 0.7;
+
         }
 
-        /* محدود کردن حرکت داخل بخش */
-        zombieX = Math.max(2,Math.min(88,zombieX));
 
-        zombie.style.left = zombieX + "%";
+        zombieX =
+            Math.max(
+                2,
+                Math.min(88,zombieX)
+            );
+
+
+        zombie.style.left =
+            zombieX + "%";
+
 
         clearTimeout(walkingTimer);
 
+
         walkingTimer = setTimeout(() => {
+
             zombie.classList.remove("walk");
+
         },180);
 
     }
 
+
     lastScroll = currentScroll;
+
 });
 
 </script>
-<button style="
-position:fixed;
-top:20px;
-left:20px;
-width:50px;
-height:50px;
-border-radius:50%;
-background:#081528;
-border:2px solid #42a5ff;
-color:white;
-font-size:25px;
-z-index:99999;
-">
-🔍
+
 </body>
     </html>
-<button style="
