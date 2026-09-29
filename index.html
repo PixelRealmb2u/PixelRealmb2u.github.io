@@ -327,3 +327,776 @@ header{
     font-size:23px;
     margin-bottom:12px;
 }
+
+.mod-card p{
+    color:#b9c9df;
+    line-height:2;
+}
+
+.download{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 20px;
+    background:#1976d2;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+/* فضای زامبی */
+.zombie-area{
+    height:230px;
+    position:relative;
+    margin:50px 0;
+    overflow:hidden;
+    border-top:1px solid #12365b;
+    border-bottom:1px solid #12365b;
+    background:linear-gradient(#030914,#071526);
+}
+
+/* ماه */
+.moon{
+    position:absolute;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#e4f0ff;
+    box-shadow:0 0 30px #b8d9ff;
+    top:35px;
+    right:15%;
+}
+
+/* زمین */
+.ground{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:42px;
+    background:repeating-linear-gradient(90deg,#153b20 0px,#153b20 38px,#1c5129 38px,#1c5129 76px);
+    border-top:7px solid #397a43;
+}
+
+/* زامبی */
+.zombie{
+    position:absolute;
+    bottom:42px;
+    left:12%;
+    width:55px;
+    height:105px;
+    image-rendering:pixelated;
+    transition:transform .08s linear;
+}
+
+/* سر */
+.z-head{
+    position:absolute;
+    top:0;
+    left:7px;
+    width:42px;
+    height:42px;
+    background:#58b957;
+    border:5px solid #183c20;
+}
+
+/* چشم ها */
+.z-head::before{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#111;
+    left:5px;
+    top:11px;
+    box-shadow:22px 0 #111;
+}
+
+/* بدن */
+.z-body{
+    position:absolute;
+    top:43px;
+    left:12px;
+    width:31px;
+    height:36px;
+    background:#267b91;
+    border:4px solid #173d4b;
+}
+
+/* پاها */
+.z-leg1,.z-leg2{
+    position:absolute;
+    top:77px;
+    width:13px;
+    height:28px;
+    background:#283c91;
+    border:3px solid #151e4e;
+}
+
+.z-leg1{
+    left:12px;
+}
+
+.z-leg2{
+    left:30px;
+}
+
+/* دست ها */
+.z-arm1,.z-arm2{
+    position:absolute;
+    top:44px;
+    width:12px;
+    height:37px;
+    background:#4ca951;
+    border:3px solid #183c20;
+}
+
+.z-arm1{
+    left:0;
+    transform:rotate(15deg);
+}
+
+.z-arm2{
+    right:0;
+    transform:rotate(-15deg);
+}
+
+/* حالت راه رفتن */
+.walk .z-leg1{
+    animation:leg1 .3s infinite alternate;
+}
+
+.walk .z-leg2{
+    animation:leg2 .3s infinite alternate;
+}
+
+.walk .z-arm1{
+    animation:arm1 .3s infinite alternate;
+}
+
+.walk .z-arm2{
+    animation:arm2 .3s infinite alternate;
+}
+
+@keyframes leg1{
+    from{transform:rotate(18deg);}
+    to{transform:rotate(-18deg);}
+}
+
+@keyframes leg2{
+    from{transform:rotate(-18deg);}
+    to{transform:rotate(18deg);}
+}
+
+@keyframes arm1{
+    from{transform:rotate(25deg);}
+    to{transform:rotate(-15deg);}
+}
+
+@keyframes arm2{
+    from{transform:rotate(-25deg);}
+    to{transform:rotate(15deg);}
+}
+
+/* متن کنار زامبی */
+.zombie-text{
+    position:absolute;
+    left:50%;
+    top:30px;
+    transform:translateX(-50%);
+    color:#42a5ff;
+    font-size:20px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+/* فوتر */
+footer{
+    text-align:center;
+    padding:50px 20px 35px;
+    margin-top:30px;
+    border-top:1px solid #12365b;
+    color:#8193ac;
+}
+
+footer strong{
+    display:block;
+    color:#42a5ff;
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+/* موبایل */
+@media(max-width:600px){
+    .logo{
+        font-size:32px;
+    }
+
+    .socials{
+        gap:9px;
+    }
+
+    .social{
+        min-height:110px;
+        font-size:14px;
+    }
+
+    .social svg{
+        width:38px;
+        height:38px;
+    }
+
+    .mods-title{
+        font-size:25px;
+    }
+
+    .zombie-text{
+        font-size:16px;
+    }
+
+}
+
+/* ===== جدید: دکمه ورود گوگل ===== */
+#loginBtn{
+    position:absolute;
+    right:18px;
+    top:18px;
+    height:48px;
+    padding:0 14px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    border:none;
+    border-radius:50px;
+    background:#ffffff;
+    color:#202124;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 0 18px #0006;
+    transition:.25s;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+#loginBtn img,#loginBtn svg{
+    width:22px;
+    height:22px;
+    border-radius:50%;
+}
+
+#loginBtn:hover{
+    transform:scale(1.06);
+    box-shadow:0 0 25px #4285f455;
+}
+
+#loginBtn span{
+    max-width:110px;
+    overflow:hidden;
+    text-overflow:ellipsis;
+    white-space:nowrap;
+}
+
+
+/* ===== جدید: پنجره ورود / ثبت‌نام ===== */
+.auth-overlay{
+    position:fixed;
+    inset:0;
+    background:#000a;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    opacity:0;
+    visibility:hidden;
+    transition:.3s;
+    z-index:10000;
+    padding:15px;
+}
+
+.auth-overlay.active{
+    opacity:1;
+    visibility:visible;
+}
+
+.auth-box{
+    width:min(400px,100%);
+    background:#06101f;
+    border:2px solid #1976d2;
+    border-radius:22px;
+    padding:28px 22px;
+    text-align:center;
+    box-shadow:0 10px 50px #000b;
+    transform:translateY(20px);
+    transition:.3s;
+}
+
+.auth-overlay.active .auth-box{
+    transform:none;
+}
+
+.auth-box h2{
+    color:#42a5ff;
+    font-size:24px;
+    margin-bottom:12px;
+}
+
+.auth-box p{
+    color:#b9c9df;
+    line-height:2;
+    margin-bottom:20px;
+    font-size:15px;
+}
+
+.auth-google{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    padding:14px;
+    border:none;
+    border-radius:14px;
+    background:#fff;
+    color:#202124;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+.auth-google svg{
+    width:22px;
+    height:22px;
+}
+
+.auth-google:disabled{
+    opacity:.6;
+    cursor:wait;
+}
+
+.auth-danger{
+    background:#ff1744;
+    color:#fff;
+    margin-top:10px;
+}
+
+.auth-cancel{
+    margin-top:12px;
+    background:none;
+    border:none;
+    color:#8193ac;
+    cursor:pointer;
+    font-size:14px;
+    font-family:Arial,Tahoma,sans-serif;
+}
+
+.auth-error{
+    color:#ff8a80;
+    font-size:14px;
+    margin-top:12px;
+    line-height:1.8;
+    min-height:1px;
+}
+
+.auth-user img{
+    width:72px;
+    height:72px;
+    border-radius:50%;
+    border:3px solid #2196ff;
+    margin-bottom:10px;
+}
+
+
+/* ===== جدید: شمارنده اعضای جامعه ===== */
+.community{
+    text-align:center;
+    margin:10px 0 40px;
+    padding:30px 20px;
+    border:1px solid #1976d2;
+    border-radius:22px;
+    background:linear-gradient(145deg,#0a192d,#071221);
+    box-shadow:0 8px 30px #0007;
+}
+
+.community-count{
+    font-size:52px;
+    font-weight:900;
+    color:#42a5ff;
+    line-height:1.2;
+    transition:transform .3s;
+}
+
+.community-count.pop{
+    transform:scale(1.25);
+}
+
+.community-label{
+    color:#b9c9df;
+    font-size:18px;
+    margin-top:6px;
+}
+
+.community-change{
+    margin-top:12px;
+    color:#4ade80;
+    font-weight:bold;
+    min-height:24px;
+    opacity:0;
+    transition:opacity .4s;
+}
+
+.community-change.show{
+    opacity:1;
+}
+</style>
+</head>
+<body>
+<header>
+    <!-- جدید: دکمه ورود سمت راست -->
+    <button id="loginBtn" aria-label="ورود یا ثبت‌نام">
+        <svg viewBox="0 0 48 48"><path fill="#EA4335" d="M24 9.5c3.5 0 6.6 1.2 9.1 3.6l6.8-6.8C35.8 2.4 30.3 0 24 0 14.6 0 6.5 5.4 2.6 13.2l7.9 6.1C12.4 13.5 17.7 9.5 24 9.5z"/><path fill="#4285F4" d="M46.5 24.5c0-1.6-.1-3.1-.4-4.5H24v9h12.7c-.6 3-2.3 5.5-4.8 7.2l7.5 5.8c4.4-4.1 7.1-10.1 7.1-17.5z"/><path fill="#FBBC05" d="M10.5 28.7A14.5 14.5 0 0 1 9.5 24c0-1.6.3-3.2.8-4.7l-7.9-6.1A24 24 0 0 0 0 24c0 3.9.9 7.5 2.6 10.8l7.9-6.1z"/><path fill="#34A853" d="M24 48c6.5 0 11.9-2.1 15.9-5.8l-7.5-5.8c-2.1 1.4-4.9 2.3-8.4 2.3-6.3 0-11.6-4-13.5-9.8l-7.9 6.1C6.5 42.6 14.6 48 24 48z"/></svg>
+        <span id="loginBtnText">ورود</span>
+    </button>
+
+    <button class="search-btn" onclick="openSearch()" aria-label="جستجو">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <circle cx="11" cy="11" r="7"></circle>
+            <line x1="16.5" y1="16.5" x2="22" y2="22"></line>
+        </svg>
+    </button>
+    <div class="logo">Pixel Realm</div>
+    <div class="subtitle">Minecraft Bedrock Mods & Add-ons</div>
+</header>
+
+<!-- پنجره جستجو -->
+
+<div class="search-overlay" id="searchOverlay" onclick="closeSearch()"></div>
+<div class="search-drawer" id="searchDrawer">
+    <div class="search-header">
+        <h2>🔎 جستجو</h2>
+        <button class="search-close" onclick="closeSearch()">×</button>
+    </div>
+    <div class="search-input-wrap">
+        <input type="search" id="searchInput" class="search-input" placeholder="جستجو..." autocomplete="off">
+    </div>
+    <div class="search-results" id="searchResults">
+        <div class="search-message">عبارت مورد نظر خود را وارد کنید.</div>
+    </div>
+</div>
+
+<!-- جدید: پنجره ورود / ثبت‌نام -->
+<div class="auth-overlay" id="authOverlay">
+    <div class="auth-box" id="authBox"></div>
+</div>
+
+<main class="container">
+<section class="welcome">
+    <h1>🎮 به Pixel Realm خوش آمدید</h1>
+    <p>
+        مرجع مودها و Add-on های جذاب Minecraft Bedrock
+        <br>
+        مودهای جدید، تصاویر، توضیحات و لینک دانلود
+    </p>
+    <a class="telegram-main" href="https://t.me/qpwoeirutyalskdjfhf" target="_blank">✈️ کانال تلگرام Pixel Realm</a>
+</section>
+
+<h2 class="social-title">🌐 شبکه‌های اجتماعی</h2>
+
+<div class="socials">
+    <!-- TELEGRAM -->
+
+    <a class="social telegram" href="https://t.me/qpwoeirutyalskdjfhf" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M21.9 3.4 18.7 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.8l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4.4z"/></svg>
+        <span>Telegram</span>
+    </a>
+
+    <!-- INSTAGRAM -->
+
+    <a class="social instagram" href="https://instagram.com/pixelrealml" target="_blank">
+        <svg viewBox="0 0 24 24">
+            <defs>
+                <linearGradient id="instaGradient" x1="0%" y1="100%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#833AB4"/>
+                    <stop offset="50%" stop-color="#E1306C"/>
+                    <stop offset="100%" stop-color="#FCAF45"/>
+                </linearGradient>
+            </defs>
+            <path d="M7 2C4.24 2 2 4.24 2 7v10c0 2.76 2.24 5 5 5h10c2.76 0 5-2.24 5-5V7c0-2.76-2.24-5-5-5H7zm0 2h10c1.66 0 3 1.34 3 3v10c0 1.66-1.34 3-3 3H7c-1.66 0-3-1.34-3-3V7c0-1.66 1.34-3 3-3zm5 3.5A4.5 4.5 0 1 0 12 16.5 4.5 4.5 0 0 0 12 7.5zm0 2A2.5 2.5 0 1 1 9.5 12 2.5 2.5 0 0 1 12 9.5zm5.25-3a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5z"/>
+        </svg>
+        <span>Instagram</span>
+    </a>
+
+    <!-- YOUTUBE -->
+
+    <a class="social youtube" href="https://www.youtube.com/@PixelRealm-b2u" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.8V8.2l6.5 3.8-6.5 3.8z"/></svg>
+        <span>YouTube</span>
+    </a>
+</div>
+
+<h2 class="mods-title">🔥 مودهای Minecraft Bedrock</h2>
+
+<div class="mod-card">
+    <h2>🚀 مودها به‌زودی اضافه می‌شوند</h2>
+    <p>
+        در این بخش مودها و Add-on های Minecraft Bedrock
+        همراه با تصویر، توضیحات، نسخه و لینک دانلود قرار می‌گیرند.
+    </p>
+    <a class="download" href="#">مشاهده مود</a>
+</div>
+
+<!-- زامبی -->
+
+<div class="zombie-area" id="zombieArea">
+    <div class="moon"></div>
+    <div class="zombie-text">🧟 Pixel Realm در حال ماجراجویی...</div>
+    <div class="zombie" id="zombie">
+        <div class="z-head"></div>
+        <div class="z-body"></div>
+        <div class="z-arm1"></div>
+        <div class="z-arm2"></div>
+        <div class="z-leg1"></div>
+        <div class="z-leg2"></div>
+    </div>
+    <div class="ground"></div>
+</div>
+
+<div class="mod-card">
+    <h2>⚙️ سیستم خودکار در آینده</h2>
+    <p>
+        ربات Pixel Realm می‌تواند اطلاعات مودهای جدید
+        را دریافت کند و آن‌ها را به صورت خودکار در سایت نمایش دهد.
+    </p>
+</div>
+
+<!-- جدید: شمارنده اعضا -->
+<section class="community">
+    <div class="community-count" id="memberCount">…</div>
+    <div class="community-label">👥 نفر به جامعه Pixel Realm پیوستند</div>
+    <div class="community-change" id="memberChange"></div>
+</section>
+</main>
+
+<footer>
+    <strong>Pixel Realm</strong>
+    Minecraft Bedrock Mods & Add-ons
+    <br><br>
+    © 2026 Pixel Realm
+</footer>
+
+<script>
+const zombie = document.getElementById("zombie");
+const zombieArea = document.getElementById("zombieArea");
+let lastScroll = window.scrollY;
+let zombieX = 12;
+let walkingTimer;
+
+/* =========================
+   سیستم جستجو
+========================= */
+
+const searchDrawer = document.getElementById("searchDrawer");
+const searchOverlay = document.getElementById("searchOverlay");
+const searchInput = document.getElementById("searchInput");
+const searchResults = document.getElementById("searchResults");
+
+function openSearch(){
+    searchDrawer.classList.add("active");
+    searchOverlay.classList.add("active");
+    setTimeout(() => { searchInput.focus(); },350);
+}
+function closeSearch(){
+    searchDrawer.classList.remove("active");
+    searchOverlay.classList.remove("active");
+}
+function escapeHTML(text){
+    const div = document.createElement("div");
+    div.textContent = text;
+    return div.innerHTML;
+}
+function searchSite(){
+    const query = searchInput.value.trim().toLowerCase();
+    searchResults.innerHTML = "";
+    if(!query){
+        searchResults.innerHTML = `<div class="search-message">عبارت مورد نظر خود را وارد کنید.</div>`;
+        return;
+    }
+    const elements = document.querySelectorAll("main h1, main h2, main h3, main p, main a");
+    let found = 0;
+    elements.forEach(element => {
+        const text = element.innerText.trim();
+        if(text && text.toLowerCase().includes(query)){
+            found++;
+            const result = document.createElement("a");
+            result.className = "search-result";
+            result.href = "#";
+            result.innerHTML = escapeHTML(text);
+            result.addEventListener("click", function(event){
+                event.preventDefault();
+                closeSearch();
+                element.scrollIntoView({behavior:"smooth",block:"center"});
+            });
+            searchResults.appendChild(result);
+        }
+    });
+    if(found === 0){
+        searchResults.innerHTML = `<div class="search-message">نتیجه‌ای برای «${escapeHTML(query)}» پیدا نشد.</div>`;
+    }
+}
+searchInput.addEventListener("input", searchSite);
+searchInput.addEventListener("keydown", function(event){
+    if(event.key === "Enter"){ searchSite(); }
+    if(event.key === "Escape"){ closeSearch(); }
+});
+
+/* =========================
+   حرکت زامبی
+========================= */
+
+window.addEventListener("scroll", () => {
+    const currentScroll = window.scrollY;
+    const areaTop = zombieArea.offsetTop;
+    const areaHeight = zombieArea.offsetHeight;
+    const visible = currentScroll + window.innerHeight > areaTop && currentScroll < areaTop + areaHeight;
+    if(visible){
+        zombie.classList.add("walk");
+        if(currentScroll > lastScroll){ zombieX += 0.7; }else{ zombieX -= 0.7; }
+        zombieX = Math.max(2, Math.min(88,zombieX));
+        zombie.style.left = zombieX + "%";
+        clearTimeout(walkingTimer);
+        walkingTimer = setTimeout(() => { zombie.classList.remove("walk"); },180);
+    }
+    lastScroll = currentScroll;
+});
+</script>
+
+<!-- ===== جدید: Firebase (ورود با گوگل + شمارنده اعضا) ===== -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
+import { getFirestore, doc, onSnapshot, runTransaction, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCb7RFpNK201O05kzMFH-oMTltKVmnFZa8",
+  authDomain: "pixel-realm-26bd8.firebaseapp.com",
+  projectId: "pixel-realm-26bd8",
+  storageBucket: "pixel-realm-26bd8.firebasestorage.app",
+  messagingSenderId: "865766586821",
+  appId: "1:865766586821:web:4677e13dc3f47c774973ac",
+  measurementId: "G-F669LE3ZTL"
+};
+
+const app = initializeApp(firebaseConfig);
+try { getAnalytics(app); } catch(e) {}
+const auth = getAuth(app);
+const db = getFirestore(app);
+auth.languageCode = "fa";
+
+const loginBtn = document.getElementById("loginBtn");
+const loginBtnText = document.getElementById("loginBtnText");
+const overlay = document.getElementById("authOverlay");
+const box = document.getElementById("authBox");
+const countEl = document.getElementById("memberCount");
+const changeEl = document.getElementById("memberChange");
+const gIcon = loginBtn.querySelector("svg").outerHTML;
+
+const esc = t => { const d = document.createElement("div"); d.textContent = t || ""; return d.innerHTML; };
+const fa = n => Number(n).toLocaleString("fa-IR");
+
+/* ---------- پنجره ---------- */
+function openAuth(){ renderAuth(); overlay.classList.add("active"); }
+function closeAuth(){ overlay.classList.remove("active"); }
+overlay.addEventListener("click", e => { if(e.target === overlay) closeAuth(); });
+document.addEventListener("keydown", e => { if(e.key === "Escape") closeAuth(); });
+loginBtn.addEventListener("click", openAuth);
+
+function renderAuth(error){
+  const user = auth.currentUser;
+  if(user){
+    box.innerHTML = `<div class="auth-user">
+      ${user.photoURL ? `<img src="${esc(user.photoURL)}" alt="" referrerpolicy="no-referrer">` : ""}
+      <h2>${esc(user.displayName || "عضو Pixel Realm")}</h2>
+      <p>${esc(user.email)}<br>شما عضو جامعه Pixel Realm هستید ✅</p>
+      <button class="auth-google auth-danger" id="logoutBtn">خروج از حساب</button>
+      <button class="auth-cancel" id="closeBtn">بستن</button></div>`;
+    document.getElementById("logoutBtn").onclick = async () => { await signOut(auth); closeAuth(); };
+  } else {
+    box.innerHTML = `<h2>ورود / ثبت‌نام</h2>
+      <p>با حساب گوگل وارد شوید یا ثبت‌نام کنید و عضو جامعه Pixel Realm شوید.</p>
+      <button class="auth-google" id="googleBtn">${gIcon}<span>ادامه با گوگل</span></button>
+      <div class="auth-error" id="authError">${error ? esc(error) : ""}</div>
+      <button class="auth-cancel" id="closeBtn">بستن</button>`;
+    document.getElementById("googleBtn").onclick = googleLogin;
+  }
+  document.getElementById("closeBtn").onclick = closeAuth;
+}
+
+async function googleLogin(){
+  const btn = document.getElementById("googleBtn");
+  btn.disabled = true;
+  try{
+    await signInWithPopup(auth, new GoogleAuthProvider());
+    closeAuth();
+  }catch(err){
+    const msgs = {
+      "auth/popup-closed-by-user": "پنجره ورود بسته شد. دوباره تلاش کنید.",
+      "auth/popup-blocked": "مرورگر پنجره ورود را مسدود کرد. اجازه‌ی popup بدهید.",
+      "auth/unauthorized-domain": "این دامنه در Firebase مجاز نشده است (Authorized domains).",
+      "auth/network-request-failed": "اتصال اینترنت را بررسی کنید."
+    };
+    renderAuth(msgs[err.code] || "ورود انجام نشد: " + err.code);
+  }
+}
+
+/* ---------- ثبت عضو جدید (فقط یک بار برای هر کاربر) ---------- */
+async function registerMember(user){
+  const userRef = doc(db, "users", user.uid);
+  const statRef = doc(db, "stats", "members");
+  try{
+    await runTransaction(db, async tx => {
+      const u = await tx.get(userRef);
+      if(u.exists()) return;
+      const s = await tx.get(statRef);
+      tx.set(userRef, { name: user.displayName || "", createdAt: serverTimestamp() });
+      tx.set(statRef, { count: s.exists() ? s.data().count + 1 : 1 });
+    });
+  }catch(e){ console.error("Member register failed:", e); }
+}
+
+/* ---------- وضعیت ورود ---------- */
+onAuthStateChanged(auth, user => {
+  if(user){
+    loginBtnText.textContent = (user.displayName || "حساب من").split(" ")[0];
+    registerMember(user);
+  } else {
+    loginBtnText.textContent = "ورود";
+  }
+});
+
+/* ---------- شمارنده زنده اعضا ---------- */
+let shown = null, timer;
+function animateTo(target){
+  clearInterval(timer);
+  const from = shown === null ? 0 : shown;
+  const steps = Math.min(30, Math.abs(target - from)) || 1;
+  let i = 0;
+  timer = setInterval(() => {
+    i++;
+    countEl.textContent = fa(Math.round(from + (target - from) * i / steps));
+    if(i >= steps){ clearInterval(timer); countEl.textContent = fa(target); }
+  }, 40);
+}
+onSnapshot(doc(db, "stats", "members"), snap => {
+  const n = snap.exists() ? snap.data().count : 0;
+  if(shown !== null && n !== shown){
+    changeEl.textContent = `تعداد اعضا از ${fa(shown)} به ${fa(n)} رسید 🎉`;
+    changeEl.classList.add("show");
+    countEl.classList.add("pop");
+    setTimeout(() => { countEl.classList.remove("pop"); changeEl.classList.remove("show"); }, 4000);
+  }
+  animateTo(n);
+  shown = n;
+}, () => { countEl.textContent = "—"; });
+</script>
+</body>
+    </html>
