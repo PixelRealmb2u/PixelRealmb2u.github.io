@@ -1018,6 +1018,24 @@ window.addEventListener("scroll", () => {
 });
 
 </script>
+<!-- Firebase Pixel Realm -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
 
+const firebaseConfig = {
+  apiKey: "AIzaSyCb7RFpNK201O05kzMFH-oMTltKVmnFZa8",
+  authDomain: "pixel-realm-26bd8.firebaseapp.com",
+  projectId: "pixel-realm-26bd8",
+  storageBucket: "pixel-realm-26bd8.firebasestorage.app",
+  messagingSenderId: "865766586821",
+  appId: "1:865766586821:web:4677e13dc3f47c774973ac",
+  measurementId: "G-F669LE3ZTL"
+};
+
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
+
+</script>
 </body>
     </html>
