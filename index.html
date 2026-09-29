@@ -90,6 +90,59 @@
       line-height: 1.7;
     }
 
+    /* Social Media */
+    .social-list {
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .social-button {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      width: 100%;
+      margin: 14px 0;
+      padding: 17px 20px;
+      border-radius: 16px;
+      background: #0b1628;
+      border: 1px solid #1d5f9e;
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+      font-weight: bold;
+      transition: 0.25s;
+      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
+    }
+
+    .social-button:hover {
+      transform: translateY(-3px);
+      border-color: #42a5ff;
+      background: #10233d;
+      box-shadow: 0 8px 25px rgba(22, 140, 255, 0.25);
+    }
+
+    .social-icon {
+      font-size: 25px;
+    }
+
+    .social-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .social-name {
+      font-size: 18px;
+    }
+
+    .social-info {
+      color: #9fb3c8;
+      font-size: 13px;
+      font-weight: normal;
+      margin-top: 4px;
+    }
+
     footer {
       margin-top: 30px;
       padding: 25px;
@@ -104,6 +157,10 @@
 
       .hero h2 {
         font-size: 24px;
+      }
+
+      .social-button {
+        padding: 16px;
       }
     }
   </style>
@@ -156,6 +213,57 @@
         اطلاعات مودهای جدید را دریافت کند و آن‌ها را
         به صورت خودکار در سایت نمایش دهد.
       </p>
+    </div>
+  </section>
+
+  <!-- شبکه‌های اجتماعی -->
+  <section class="section">
+    <h2>🌐 شبکه‌های اجتماعی Pixel Realm</h2>
+
+    <div class="social-list">
+
+      <a
+        class="social-button"
+        href="https://t.me/qpwoeirutyalskdjfhf"
+        target="_blank">
+
+        <span class="social-icon">📱</span>
+
+        <span class="social-text">
+          <span class="social-name">Telegram</span>
+          <span class="social-info">جدیدترین مودها و Add-onها</span>
+        </span>
+
+      </a>
+
+      <a
+        class="social-button"
+        href="https://www.youtube.com/@PixelRealm-b2u"
+        target="_blank">
+
+        <span class="social-icon">▶️</span>
+
+        <span class="social-text">
+          <span class="social-name">YouTube</span>
+          <span class="social-info">ویدیوها و محتوای Minecraft</span>
+        </span>
+
+      </a>
+
+      <a
+        class="social-button"
+        href="https://instagram.com/pixelrealml"
+        target="_blank">
+
+        <span class="social-icon">📸</span>
+
+        <span class="social-text">
+          <span class="social-name">Instagram</span>
+          <span class="social-info">@pixelrealml</span>
+        </span>
+
+      </a>
+
     </div>
   </section>
 
