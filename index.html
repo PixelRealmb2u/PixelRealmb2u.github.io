@@ -1,277 +1,633 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Pixel Realm | Minecraft Bedrock Mods</title>
+<title>Pixel Realm | Minecraft Bedrock Mods</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,Tahoma,sans-serif;
+    background:#030914;
+    color:white;
+    overflow-x:hidden;
+}
+
+/* پس زمینه */
+body::before{
+    content:"";
+    position:fixed;
+    inset:0;
+    z-index:-2;
+    background:
+    radial-gradient(circle at 50% 10%,#08275c 0%,transparent 35%),
+    radial-gradient(circle at 10% 70%,#061c38 0%,transparent 30%),
+    #030914;
+}
+
+/* هدر */
+header{
+    padding:45px 20px 35px;
+    text-align:center;
+    background:linear-gradient(135deg,#06347a,#0755c7);
+    border-bottom:3px solid #2196ff;
+    border-radius:0 0 28px 28px;
+    box-shadow:0 10px 40px #0008;
+}
+
+.logo{
+    color:#42a5ff;
+    font-size:38px;
+    font-weight:900;
+    margin-bottom:8px;
+}
+
+.subtitle{
+    font-size:18px;
+    color:#d7e9ff;
+}
+
+/* محتوای اصلی */
+.container{
+    width:min(920px,92%);
+    margin:auto;
+}
+
+.welcome{
+    text-align:center;
+    padding:45px 15px 25px;
+}
+
+.welcome h1{
+    font-size:30px;
+    margin-bottom:18px;
+}
+
+.welcome p{
+    color:#b9c9df;
+    font-size:18px;
+    line-height:2;
+}
+
+/* تلگرام اصلی */
+.telegram-main{
+    display:block;
+    width:min(500px,90%);
+    margin:25px auto 45px;
+    padding:19px;
+    border-radius:18px;
+    text-decoration:none;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    background:#229ED9;
+    box-shadow:0 0 30px #229ed955;
+    transition:.25s;
+}
+
+.telegram-main:hover{
+    transform:translateY(-4px);
+}
+
+/* شبکه های اجتماعی */
+.social-title{
+    text-align:center;
+    color:#42a5ff;
+    font-size:27px;
+    margin:25px 0;
+}
+
+.socials{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:14px;
+    margin-bottom:55px;
+}
+
+.social{
+    min-height:125px;
+    border-radius:20px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    gap:12px;
+    color:white;
+    text-decoration:none;
+    font-weight:bold;
+    font-size:17px;
+    transition:.25s;
+    border:2px solid;
+    background:#081528;
+}
+
+.social svg{
+    width:43px;
+    height:43px;
+}
+
+.social:hover{
+    transform:translateY(-7px) scale(1.02);
+}
+
+/* تلگرام */
+.telegram{
+    border-color:#229ED9;
+    box-shadow:0 0 18px #229ed933;
+}
+
+.telegram svg{
+    fill:#229ED9;
+}
+
+/* اینستاگرام */
+.instagram{
+    border-color:#c13584;
+    box-shadow:0 0 18px #c1358444;
+}
+
+.instagram svg{
+    fill:url(#instaGradient);
+}
+
+/* یوتیوب */
+.youtube{
+    border-color:#ff1744;
+    box-shadow:0 0 18px #ff174444;
+}
+
+.youtube svg{
+    fill:#ff1744;
+}
+
+/* عنوان مودها */
+.mods-title{
+    text-align:center;
+    color:#42a5ff;
+    font-size:30px;
+    margin:35px 0 25px;
+}
+
+/* کارت مود */
+.mod-card{
+    background:linear-gradient(145deg,#0a192d,#071221);
+    border:1px solid #1976d2;
+    border-radius:22px;
+    padding:25px;
+    margin-bottom:22px;
+    box-shadow:0 8px 30px #0007;
+}
+
+.mod-card h2{
+    font-size:23px;
+    margin-bottom:12px;
+}
+
+.mod-card p{
+    color:#b9c9df;
+    line-height:2;
+}
+
+.download{
+    display:inline-block;
+    margin-top:18px;
+    padding:12px 20px;
+    background:#1976d2;
+    color:white;
+    text-decoration:none;
+    border-radius:12px;
+    font-weight:bold;
+}
+
+/* فضای زامبی */
+.zombie-area{
+    height:230px;
+    position:relative;
+    margin:50px 0;
+    overflow:hidden;
+    border-top:1px solid #12365b;
+    border-bottom:1px solid #12365b;
+    background:
+    linear-gradient(#030914,#071526);
+}
+
+/* ماه */
+.moon{
+    position:absolute;
+    width:55px;
+    height:55px;
+    border-radius:50%;
+    background:#e4f0ff;
+    box-shadow:0 0 30px #b8d9ff;
+    top:35px;
+    right:15%;
+}
+
+/* زمین */
+.ground{
+    position:absolute;
+    bottom:0;
+    left:0;
+    width:100%;
+    height:42px;
+    background:
+    repeating-linear-gradient(
+        90deg,
+        #153b20 0px,
+        #153b20 38px,
+        #1c5129 38px,
+        #1c5129 76px
+    );
+    border-top:7px solid #397a43;
+}
+
+/* زامبی */
+.zombie{
+    position:absolute;
+    bottom:42px;
+    left:12%;
+    width:55px;
+    height:105px;
+    image-rendering:pixelated;
+    transition:transform .08s linear;
+}
+
+/* سر */
+.z-head{
+    position:absolute;
+    top:0;
+    left:7px;
+    width:42px;
+    height:42px;
+    background:#58b957;
+    border:5px solid #183c20;
+}
+
+/* چشم ها */
+.z-head::before{
+    content:"";
+    position:absolute;
+    width:8px;
+    height:8px;
+    background:#111;
+    left:5px;
+    top:11px;
+    box-shadow:22px 0 #111;
+}
+
+/* بدن */
+.z-body{
+    position:absolute;
+    top:43px;
+    left:12px;
+    width:31px;
+    height:36px;
+    background:#267b91;
+    border:4px solid #173d4b;
+}
+
+/* پاها */
+.z-leg1,
+.z-leg2{
+    position:absolute;
+    top:77px;
+    width:13px;
+    height:28px;
+    background:#283c91;
+    border:3px solid #151e4e;
+}
+
+.z-leg1{
+    left:12px;
+}
+
+.z-leg2{
+    left:30px;
+}
+
+/* دست ها */
+.z-arm1,
+.z-arm2{
+    position:absolute;
+    top:44px;
+    width:12px;
+    height:37px;
+    background:#4ca951;
+    border:3px solid #183c20;
+}
+
+.z-arm1{
+    left:0;
+    transform:rotate(15deg);
+}
+
+.z-arm2{
+    right:0;
+    transform:rotate(-15deg);
+}
+
+/* حالت راه رفتن */
+.walk .z-leg1{
+    animation:leg1 .3s infinite alternate;
+}
+
+.walk .z-leg2{
+    animation:leg2 .3s infinite alternate;
+}
+
+.walk .z-arm1{
+    animation:arm1 .3s infinite alternate;
+}
+
+.walk .z-arm2{
+    animation:arm2 .3s infinite alternate;
+}
+
+@keyframes leg1{
+    from{transform:rotate(18deg);}
+    to{transform:rotate(-18deg);}
+}
+
+@keyframes leg2{
+    from{transform:rotate(-18deg);}
+    to{transform:rotate(18deg);}
+}
+
+@keyframes arm1{
+    from{transform:rotate(25deg);}
+    to{transform:rotate(-15deg);}
+}
+
+@keyframes arm2{
+    from{transform:rotate(-25deg);}
+    to{transform:rotate(15deg);}
+}
+
+/* متن کنار زامبی */
+.zombie-text{
+    position:absolute;
+    left:50%;
+    top:30px;
+    transform:translateX(-50%);
+    color:#42a5ff;
+    font-size:20px;
+    font-weight:bold;
+    white-space:nowrap;
+}
+
+/* فوتر */
+footer{
+    text-align:center;
+    padding:50px 20px 35px;
+    margin-top:30px;
+    border-top:1px solid #12365b;
+    color:#8193ac;
+}
+
+footer strong{
+    display:block;
+    color:#42a5ff;
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+/* موبایل */
+@media(max-width:600px){
+
+    .logo{
+        font-size:32px;
     }
 
-    body {
-      font-family: Arial, sans-serif;
-      background: #050b16;
-      color: white;
-      text-align: center;
+    .socials{
+        gap:9px;
     }
 
-    header {
-      padding: 30px 20px;
-      background: linear-gradient(135deg, #071a35, #0b3d91);
-      border-bottom: 2px solid #168cff;
+    .social{
+        min-height:110px;
+        font-size:14px;
     }
 
-    header h1 {
-      font-size: 34px;
-      color: #42a5ff;
-      margin-bottom: 10px;
+    .social svg{
+        width:38px;
+        height:38px;
     }
 
-    header p {
-      color: #d5e9ff;
-      font-size: 16px;
+    .mods-title{
+        font-size:25px;
     }
 
-    .hero {
-      padding: 55px 20px;
+    .zombie-text{
+        font-size:16px;
     }
-
-    .hero h2 {
-      font-size: 28px;
-      margin-bottom: 15px;
-    }
-
-    .hero p {
-      color: #b8c7d9;
-      line-height: 1.8;
-      margin-bottom: 25px;
-    }
-
-    .button {
-      display: inline-block;
-      padding: 14px 25px;
-      background: #168cff;
-      color: white;
-      text-decoration: none;
-      border-radius: 12px;
-      font-weight: bold;
-      box-shadow: 0 0 20px #168cff55;
-    }
-
-    .section {
-      padding: 30px 20px;
-    }
-
-    .section h2 {
-      color: #42a5ff;
-      margin-bottom: 20px;
-    }
-
-    .card {
-      max-width: 500px;
-      margin: 15px auto;
-      padding: 22px;
-      background: #0b1628;
-      border: 1px solid #1d5f9e;
-      border-radius: 16px;
-    }
-
-    .card h3 {
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      color: #aebed0;
-      line-height: 1.7;
-    }
-
-    /* Social Media */
-    .social-list {
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .social-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-      width: 100%;
-      margin: 14px 0;
-      padding: 17px 20px;
-      border-radius: 16px;
-      background: #0b1628;
-      border: 1px solid #1d5f9e;
-      color: white;
-      text-decoration: none;
-      font-size: 18px;
-      font-weight: bold;
-      transition: 0.25s;
-      box-shadow: 0 5px 18px rgba(0, 0, 0, 0.25);
-    }
-
-    .social-button:hover {
-      transform: translateY(-3px);
-      border-color: #42a5ff;
-      background: #10233d;
-      box-shadow: 0 8px 25px rgba(22, 140, 255, 0.25);
-    }
-
-    .social-icon {
-      font-size: 25px;
-    }
-
-    .social-text {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .social-name {
-      font-size: 18px;
-    }
-
-    .social-info {
-      color: #9fb3c8;
-      font-size: 13px;
-      font-weight: normal;
-      margin-top: 4px;
-    }
-
-    footer {
-      margin-top: 30px;
-      padding: 25px;
-      background: #030711;
-      color: #718096;
-    }
-
-    @media (max-width: 600px) {
-      header h1 {
-        font-size: 28px;
-      }
-
-      .hero h2 {
-        font-size: 24px;
-      }
-
-      .social-button {
-        padding: 16px;
-      }
-    }
-  </style>
+}
+</style>
 </head>
 
 <body>
 
-  <header>
-    <h1>Pixel Realm</h1>
-    <p>Minecraft Bedrock Mods & Add-ons</p>
-  </header>
+<header>
+    <div class="logo">Pixel Realm</div>
+    <div class="subtitle">Minecraft Bedrock Mods & Add-ons</div>
+</header>
 
-  <section class="hero">
-    <h2>به Pixel Realm خوش آمدید 🎮</h2>
+<main class="container">
+
+<section class="welcome">
+    <h1>🎮 به Pixel Realm خوش آمدید</h1>
 
     <p>
-      اینجا می‌توانید مودها و Add-onهای جذاب Minecraft Bedrock
-      را پیدا کنید و اطلاعات مربوط به آن‌ها را ببینید.
+        مرجع مودها و Add-on های جذاب Minecraft Bedrock
+        <br>
+        مودهای جدید، تصاویر، توضیحات و لینک دانلود
     </p>
 
-    <a
-      class="button"
-      href="https://t.me/qpwoeirutyalskdjfhf"
-      target="_blank">
-      کانال تلگرام Pixel Realm
+    <a class="telegram-main"
+       href="https://t.me/YOUR_TELEGRAM"
+       target="_blank">
+       ✈️ کانال تلگرام Pixel Realm
     </a>
-  </section>
+</section>
 
-  <section class="section">
-    <h2>🔥 مودهای Minecraft Bedrock</h2>
 
-    <div class="card">
-      <h3>مودها به‌زودی اضافه می‌شوند 🚀</h3>
+<h2 class="social-title">🌐 شبکه‌های اجتماعی</h2>
 
-      <p>
-        در این بخش مودها و Add-onهای Minecraft Bedrock
+<div class="socials">
+
+    <!-- TELEGRAM -->
+    <a class="social telegram"
+       href="https://t.me/YOUR_TELEGRAM"
+       target="_blank">
+
+        <svg viewBox="0 0 24 24">
+            <path d="M21.9 3.4 18.7 20c-.2 1.2-.9 1.5-1.8.9l-5-3.7-2.4 2.3c-.3.3-.5.5-1 .5l.4-5.1 9.3-8.4c.4-.4-.1-.6-.6-.2L6.1 13.8l-4.9-1.5c-1.1-.3-1.1-1.1.2-1.6L20.5 3c.9-.3 1.7.2 1.4.4z"/>
+        </svg>
+
+        <span>Telegram</span>
+    </a>
+
+
+    <!-- INSTAGRAM -->
+    <a class="social instagram"
+       href="https://instagram.com/YOUR_INSTAGRAM"
+       target="_blank">
+
+        <svg viewBox="0 0 24 24">
+            <defs>
+                <linearGradient id="instaGradient"
+                    x1="0%" y1="100%"
+                    x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#833AB4"/>
+                    <stop offset="50%" stop-color="#E1306C"/>
+                    <stop offset="100%" stop-color="#FCAF45"/>
+                </linearGradient>
+            </defs>
+
+            <path d="M7.5 2h9A5.5 5.5 0 0 1 22 7.5v9a5.5 5.5 0 0 1-5.5 5.5h-9A5.5 5.5 0 0 1 2 16.5v-9A5.5 5.5 0 0 1 7.5 2zm0 2A3.5 3.5 0 0 0 4 7.5v9A3.5 3.5 0 0 0 7.5 20h9a3.5 3.5 0 0 0 3.5-3.5v-9A3.5 3.5 0 0 0 16.5 4h-9zm4.5 3a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6zm5.2-3.2a1.2 1.2 0 1 1 0 2.4 1.2 1.2 0 0 1 0-2.4z"/>
+        </svg>
+
+        <span>Instagram</span>
+    </a>
+
+
+    <!-- YOUTUBE -->
+    <a class="social youtube"
+       href="https://www.youtube.com/@PixelRealm-b2u"
+       target="_blank">
+
+        <svg viewBox="0 0 24 24">
+            <path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.6 15.8V8.2l6.5 3.8-6.5 3.8z"/>
+        </svg>
+
+        <span>YouTube</span>
+    </a>
+
+</div>
+
+
+<h2 class="mods-title">🔥 مودهای Minecraft Bedrock</h2>
+
+
+<div class="mod-card">
+    <h2>🚀 مودها به‌زودی اضافه می‌شوند</h2>
+
+    <p>
+        در این بخش مودها و Add-on های Minecraft Bedrock
         همراه با تصویر، توضیحات، نسخه و لینک دانلود قرار می‌گیرند.
-      </p>
+    </p>
+
+    <a class="download" href="#">
+        مشاهده مود
+    </a>
+</div>
+
+
+<!-- زامبی -->
+<div class="zombie-area" id="zombieArea">
+
+    <div class="moon"></div>
+
+    <div class="zombie-text">
+        🧟 Pixel Realm در حال ماجراجویی...
     </div>
-  </section>
 
-  <section class="section">
-    <h2>🤖 ربات تلگرام</h2>
+    <div class="zombie" id="zombie">
 
-    <div class="card">
-      <h3>سیستم خودکار در آینده</h3>
+        <div class="z-head"></div>
 
-      <p>
-        در آینده ربات تلگرام Pixel Realm می‌تواند
-        اطلاعات مودهای جدید را دریافت کند و آن‌ها را
-        به صورت خودکار در سایت نمایش دهد.
-      </p>
-    </div>
-  </section>
+        <div class="z-body"></div>
 
-  <!-- شبکه‌های اجتماعی -->
-  <section class="section">
-    <h2>🌐 شبکه‌های اجتماعی Pixel Realm</h2>
+        <div class="z-arm1"></div>
+        <div class="z-arm2"></div>
 
-    <div class="social-list">
-
-      <a
-        class="social-button"
-        href="https://t.me/qpwoeirutyalskdjfhf"
-        target="_blank">
-
-        <span class="social-icon">📱</span>
-
-        <span class="social-text">
-          <span class="social-name">Telegram</span>
-          <span class="social-info">جدیدترین مودها و Add-onها</span>
-        </span>
-
-      </a>
-
-      <a
-        class="social-button"
-        href="https://www.youtube.com/@PixelRealm-b2u"
-        target="_blank">
-
-        <span class="social-icon">▶️</span>
-
-        <span class="social-text">
-          <span class="social-name">YouTube</span>
-          <span class="social-info">ویدیوها و محتوای Minecraft</span>
-        </span>
-
-      </a>
-
-      <a
-        class="social-button"
-        href="https://instagram.com/pixelrealml"
-        target="_blank">
-
-        <span class="social-icon">📸</span>
-
-        <span class="social-text">
-          <span class="social-name">Instagram</span>
-          <span class="social-info">@pixelrealml</span>
-        </span>
-
-      </a>
+        <div class="z-leg1"></div>
+        <div class="z-leg2"></div>
 
     </div>
-  </section>
 
-  <footer>
-    © 2026 Pixel Realm
-    <br>
+    <div class="ground"></div>
+
+</div>
+
+
+<div class="mod-card">
+    <h2>⚙️ سیستم خودکار در آینده</h2>
+
+    <p>
+        ربات Pixel Realm می‌تواند اطلاعات مودهای جدید
+        را دریافت کند و آن‌ها را به صورت خودکار در سایت نمایش دهد.
+    </p>
+</div>
+
+</main>
+
+
+<footer>
+    <strong>Pixel Realm</strong>
     Minecraft Bedrock Mods & Add-ons
-  </footer>
+    <br><br>
+    © 2026 Pixel Realm
+</footer>
+
+
+<script>
+
+const zombie = document.getElementById("zombie");
+const zombieArea = document.getElementById("zombieArea");
+
+let lastScroll = window.scrollY;
+let zombieX = 12;
+let walkingTimer;
+
+window.addEventListener("scroll", () => {
+
+    const currentScroll = window.scrollY;
+    const areaTop = zombieArea.offsetTop;
+    const areaHeight = zombieArea.offsetHeight;
+
+    /* فقط وقتی بخش زامبی در صفحه دیده می‌شود */
+    const visible =
+        currentScroll + window.innerHeight > areaTop &&
+        currentScroll < areaTop + areaHeight;
+
+    if(visible){
+
+        zombie.classList.add("walk");
+
+        /* حرکت بر اساس مقدار اسکرول */
+        if(currentScroll > lastScroll){
+            zombieX += 0.7;
+        }else{
+            zombieX -= 0.7;
+        }
+
+        /* محدود کردن حرکت داخل بخش */
+        zombieX = Math.max(2,Math.min(88,zombieX));
+
+        zombie.style.left = zombieX + "%";
+
+        clearTimeout(walkingTimer);
+
+        walkingTimer = setTimeout(() => {
+            zombie.classList.remove("walk");
+        },180);
+
+    }
+
+    lastScroll = currentScroll;
+});
+
+</script>
 
 </body>
-  </html>
+                      </html>
