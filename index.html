@@ -747,6 +747,39 @@ footer strong{
 .community-change.show{
     opacity:1;
 }
+
+
+/* ===== جدید: نمایش مود در نتایج جستجو ===== */
+.mod-result img{
+    width:100%;
+    max-height:180px;
+    object-fit:cover;
+    border-radius:12px;
+    margin-bottom:10px;
+}
+
+.mod-result h4{
+    color:#42a5ff;
+    font-size:18px;
+    margin-bottom:6px;
+}
+
+.mod-version{
+    color:#8193ac;
+    font-size:13px;
+    margin-bottom:6px;
+}
+
+.mod-desc{
+    color:#b9c9df;
+    font-size:14px;
+    line-height:1.9;
+}
+
+.mod-result .download{
+    margin-top:12px;
+    padding:10px 16px;
+}
 </style>
 </head>
 <body>
@@ -902,6 +935,7 @@ const searchResults = document.getElementById("searchResults");
 function openSearch(){
     searchDrawer.classList.add("active");
     searchOverlay.classList.add("active");
+    if(typeof window.refreshMods === "function"){ window.refreshMods(); }
     setTimeout(() => { searchInput.focus(); },350);
 }
 function closeSearch(){
@@ -913,6 +947,53 @@ function escapeHTML(text){
     div.textContent = text;
     return div.innerHTML;
 }
+
+/* ساخت کارت مود برای نتایج جستجو (داده‌ها از Firestore، Collection: mods) */
+function createModResult(mod){
+    const card = document.createElement("div");
+    card.className = "search-result mod-result";
+
+    const image = mod.image;
+    if(typeof image === "string" && (image.startsWith("data:image/") || image.startsWith("https://"))){
+        const img = document.createElement("img");
+        img.src = image;
+        img.alt = mod.name || "";
+        img.loading = "lazy";
+        card.appendChild(img);
+    }
+
+    const title = document.createElement("h4");
+    title.textContent = mod.name || "";
+    card.appendChild(title);
+
+    if(mod.version){
+        const version = document.createElement("div");
+        version.className = "mod-version";
+        version.textContent = "نسخه: " + mod.version;
+        card.appendChild(version);
+    }
+
+    if(mod.description){
+        const desc = document.createElement("div");
+        desc.className = "mod-desc";
+        desc.textContent = mod.description;
+        card.appendChild(desc);
+    }
+
+    const link = mod.telegram_link || mod.telegramUrl;
+    if(typeof link === "string" && /^https:\/\/(t\.me|telegram\.me)\//i.test(link)){
+        const btn = document.createElement("a");
+        btn.className = "download";
+        btn.href = link;
+        btn.target = "_blank";
+        btn.rel = "noopener";
+        btn.textContent = "مشاهده / دانلود از تلگرام";
+        card.appendChild(btn);
+    }
+
+    return card;
+}
+
 function searchSite(){
     const query = searchInput.value.trim().toLowerCase();
     searchResults.innerHTML = "";
@@ -920,8 +1001,18 @@ function searchSite(){
         searchResults.innerHTML = `<div class="search-message">عبارت مورد نظر خود را وارد کنید.</div>`;
         return;
     }
-    const elements = document.querySelectorAll("main h1, main h2, main h3, main p, main a");
+
     let found = 0;
+
+    /* 1) جستجوی مودهای Firestore */
+    const mods = (typeof window.searchMods === "function") ? window.searchMods(query) : [];
+    mods.forEach(mod => {
+        found++;
+        searchResults.appendChild(createModResult(mod));
+    });
+
+    /* 2) جستجوی محتوای خود سایت (مثل قبل) */
+    const elements = document.querySelectorAll("main h1, main h2, main h3, main p, main a");
     elements.forEach(element => {
         const text = element.innerText.trim();
         if(text && text.toLowerCase().includes(query)){
@@ -969,12 +1060,12 @@ window.addEventListener("scroll", () => {
 });
 </script>
 
-<!-- ===== جدید: Firebase (ورود با گوگل + شمارنده اعضا) ===== -->
+<!-- ===== جدید: Firebase (ورود با گوگل + شمارنده اعضا + جستجوی مودها) ===== -->
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-analytics.js";
 import { getAuth, GoogleAuthProvider, signInWithPopup, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-auth.js";
-import { getFirestore, doc, onSnapshot, runTransaction, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+import { getFirestore, collection, getDocs, doc, onSnapshot, runTransaction, serverTimestamp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCb7RFpNK201O05kzMFH-oMTltKVmnFZa8",
@@ -1097,6 +1188,45 @@ onSnapshot(doc(db, "stats", "members"), snap => {
   animateTo(n);
   shown = n;
 }, () => { countEl.textContent = "—"; });
+
+/* ---------- جستجوی مودها از Firestore (Collection: mods) ---------- */
+let modsCache = [];
+
+function normalizeText(t){
+  return String(t || "").toLowerCase()
+    .replace(/[\u064B-\u065F\u0670\u200c\u200e\u200f]/g, "")
+    .replace(/ي/g, "ی").replace(/ك/g, "ک").replace(/ۀ/g, "ه")
+    .replace(/[أإآ]/g, "ا")
+    .replace(/\s+/g, " ").trim();
+}
+
+async function loadMods(){
+  try{
+    const snapshot = await getDocs(collection(db, "mods"));
+    modsCache = snapshot.docs.map(docSnap => ({
+      id: docSnap.id,
+      ...docSnap.data()
+    }));
+  }catch(e){ console.error("Mods load failed:", e); }
+}
+
+window.refreshMods = async () => {
+  await loadMods();
+  const input = document.getElementById("searchInput");
+  if(input && input.value.trim() && typeof window.searchSite === "function"){ window.searchSite(); }
+};
+
+window.searchMods = query => {
+  const words = normalizeText(query).split(" ").filter(Boolean);
+  if(!words.length) return [];
+  return modsCache.filter(mod => {
+    const kw = Array.isArray(mod.keywords) ? mod.keywords.join(" ") : (mod.keywords || "");
+    const haystack = normalizeText([mod.name, kw, mod.description, mod.version].join(" "));
+    return words.every(w => haystack.includes(w));
+  });
+};
+
+loadMods();
 </script>
 </body>
     </html>
